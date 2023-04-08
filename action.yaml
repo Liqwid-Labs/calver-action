@@ -1,0 +1,14 @@
+name: 'calver'
+description: 'Create tag for calendar versioning in the form of vMAJOR.YYYYMMDD.PATCH'
+inputs:
+  level:
+    description: 'One of "major" or "minor"'
+    default: 'minor'
+  token:
+    description: 'GitHub token'
+outputs:
+  version:
+    description: 'New version in the format of vMAJOR.YYYMMDD.PATCH'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

@@ -1,0 +1,28 @@
+on:
+  workflow_dispatch:
+    inputs:
+      level:
+        description: 'One of "major" or "minor"'
+        required: true
+        default: 'minor'
+name: Bump Version
+permissions:
+  contents: write
+jobs:
+  bump_version:
+    runs-on: ubuntu-latest
+    name: Bump Version
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cal Ver
+        uses: ./
+        id: calver
+        with:
+          level: ${{ github.event.inputs.level }}
+          token: ${{ github.token }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+          tag_name: ${{ steps.calver.outputs.version }}
