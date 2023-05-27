@@ -2,9 +2,12 @@ on:
   workflow_dispatch:
     inputs:
       level:
-        description: 'One of "major" or "minor"'
+        options:
+          - major
+          - minor
+        type: choice
+        default: minor
         required: true
-        default: 'minor'
 name: Bump Version
 permissions:
   contents: write
