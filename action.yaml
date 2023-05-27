@@ -9,6 +9,12 @@ inputs:
 outputs:
   version:
     description: 'New version in the format of vMAJOR.YYYMMDD.PATCH'
+  major:
+    description: 'Major version in the format of "1"'
+  minor:
+    description: 'Minor version in the format of "YYYMMDD"'
+  patch:
+    description: 'Patch version in the format of "1"'
 runs:
   using: 'node16'
   main: 'dist/index.js'

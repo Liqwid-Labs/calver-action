@@ -32,11 +32,10 @@ async function run() {
   const currentVersion = semver.parse(currentVersionStr)
   core.info(`Found latest version: ${currentVersionStr}`)
 
-  const newVersionParts = [
-    currentVersion.major + Number(level === 'major'),
-    minorVersion,
-    level !== 'major' && currentVersion.minor === minorVersion ? currentVersion.patch + 1 : 0,
-  ]
+  const major = currentVersion.major + Number(level === 'major')
+  const minor = minorVersion
+  const patch = level !== 'major' && currentVersion.minor === minorVersion ? currentVersion.patch + 1 : 0
+  const newVersionParts = [major, minor, patch]
   const newVersion = `v${newVersionParts.join('.')}`
 
   // Commit the tag to the repo
@@ -56,6 +55,9 @@ async function run() {
   core.notice(`New version: ${newVersion}`)
 
   core.setOutput('version', newVersion)
+  core.setOutput('major', major)
+  core.setOutput('minor', minor)
+  core.setOutput('patch', patch)
 }
 
 run().catch((err) => core.setFailed(err.message))
