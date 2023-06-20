@@ -10,7 +10,7 @@ async function run() {
   // Generate minor version from date
   const d = new Date()
   const year = String(d.getUTCFullYear()).padStart(2, '0')
-  const month = String(d.getUTCMonth()).padStart(2, '0')
+  const month = String(d.getUTCMonth() + 1).padStart(2, '0')
   const day = String(d.getUTCDate()).padStart(2, '0')
   const minorVersion = Number(`${year}${month}${day}`)
 
