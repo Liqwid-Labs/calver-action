@@ -7,6 +7,8 @@ inputs:
   token:
     description: 'GitHub token'
 outputs:
+  version_dns:
+    description: 'New version in the DNS compatible format of vMAJOR-YYYMMDD-PATCH'
   version:
     description: 'New version in the format of vMAJOR.YYYMMDD.PATCH'
   major:

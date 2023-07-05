@@ -13066,6 +13066,7 @@ async function run() {
   const patch = level !== 'major' && currentVersion.minor === minorVersion ? currentVersion.patch + 1 : 0
   const newVersionParts = [major, minor, patch]
   const newVersion = `v${newVersionParts.join('.')}`
+  const newVersionDNS = `v${newVersionParts.join('-')}`
 
   // Commit the tag to the repo
   const newTag = await octokit.rest.git.createTag({
@@ -13083,6 +13084,7 @@ async function run() {
   core.info(`Tag "${newVersion}" created on commit SHA "${process.env.GITHUB_SHA}"`)
   core.notice(`New version: ${newVersion}`)
 
+  core.setOutput('version_dns', newVersionDNS)
   core.setOutput('version', newVersion)
   core.setOutput('major', major)
   core.setOutput('minor', minor)
