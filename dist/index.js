@@ -13068,21 +13068,19 @@ async function run() {
   const newVersion = `v${newVersionParts.join('.')}`
   const newVersionDNS = `v${newVersionParts.join('-')}`
 
-  // Commit the tag to the repo
-  const newTag = await octokit.rest.git.createTag({
+  // Create a release (which also creates a tag)
+  core.info(`Creating release "${newVersion}"`);
+  await octokit.rest.repos.createRelease({
     ...github.context.repo,
-    tag: newVersion,
-    message: `Version ${newVersion}`,
-    object: process.env.GITHUB_SHA,
-    type: 'commit',
-  })
-  await octokit.rest.git.createRef({
-    ...github.context.repo,
-    ref: `refs/tags/${newTag.data.tag}`,
-    sha: newTag.data.sha,
-  })
-  core.info(`Tag "${newVersion}" created on commit SHA "${process.env.GITHUB_SHA}"`)
-  core.notice(`New version: ${newVersion}`)
+    tag_name: newVersion,
+    name: `Version ${newVersion}`,
+    body: `Release of version ${newVersion}`,
+    draft: false,
+    prerelease: false,
+    target_commitish: process.env.GITHUB_SHA,
+  });
+  core.info(`Release "${newVersion}" created on commit SHA "${process.env.GITHUB_SHA}"`);
+  core.notice(`New version: ${newVersion}`);
 
   core.setOutput('version_dns', newVersionDNS)
   core.setOutput('version', newVersion)
