@@ -13074,7 +13074,7 @@ async function run() {
     ...github.context.repo,
     tag_name: newVersion,
     name: newVersion,
-    body: `Full Changelog: https://github.com/Liqwid-Labs/calver-action/commits/${newVersion}`,
+    body: `Full Changelog: https://github.com/${github.context.repo.owner}/${github.context.repo.repo}/commits/${newVersion}`,
     draft: false,
     prerelease: false,
     target_commitish: process.env.GITHUB_SHA,
