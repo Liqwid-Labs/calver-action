@@ -13073,8 +13073,8 @@ async function run() {
   await octokit.rest.repos.createRelease({
     ...github.context.repo,
     tag_name: newVersion,
-    name: `Version ${newVersion}`,
-    body: `Release of version ${newVersion}`,
+    name: newVersion,
+    body: `Full Changelog: https://github.com/Liqwid-Labs/calver-action/commits/${newVersion}`,
     draft: false,
     prerelease: false,
     target_commitish: process.env.GITHUB_SHA,
